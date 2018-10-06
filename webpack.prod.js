@@ -15,7 +15,7 @@ module.exports = merge(common, {
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true // set to true if you want JS source maps
+        sourceMap: true // set to true if you want JS source maps (to see where an error comes from)
       }),
       new OptimizeCSSAssetsPlugin({})
     ]
@@ -34,6 +34,16 @@ module.exports = merge(common, {
           MiniCssExtractPlugin.loader,
           "css-loader"
         ]
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       }
     ]
   }
